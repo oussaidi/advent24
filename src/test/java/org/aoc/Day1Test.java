@@ -30,25 +30,25 @@ class Day1Test {
     }
 
     @Test
-    void when_empty_inputs_return_zero() throws IOException {
+    void when_empty_inputs_return_zero() {
         Day1 day1 = new Day1();
         assertThat(day1.distance(emptyList(), emptyList())).isEqualTo(0);
     }
 
     @Test
-    void one_element_list() throws IOException {
+    void one_element_list() {
         Day1 day1 = new Day1();
         assertThat(day1.distance(singleton(3), singleton(1))).isEqualTo(2);
     }
 
     @Test
-    void two_elements_list() throws IOException {
+    void two_elements_list() {
         Day1 day1 = new Day1();
         assertThat(day1.distance(List.of(3, 4), List.of(1, 3))).isEqualTo(3);
     }
 
     @Test
-    void unsorted_elements_list() throws IOException {
+    void unsorted_elements_list() {
         Day1 day1 = new Day1();
         assertThat(day1.distance(List.of(1, 4), List.of(3, 1))).isEqualTo(1);
     }
