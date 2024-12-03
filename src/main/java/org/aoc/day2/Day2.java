@@ -1,5 +1,6 @@
 package org.aoc.day2;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BiPredicate;
@@ -16,11 +17,23 @@ public class Day2 {
 
     public boolean isSafe(List<Integer> report) {
         for(int i = 0; i < report.size(); i++) {
-            if(!(isSortedAsc(report) || isSortedDesc(report))) {
+            if(!(isSortedAsc(report) || isSortedDesc(report) || canBeMadeSafe(report))) {
                 return false;
             }
         }
         return true;
+    }
+
+    public boolean canBeMadeSafe(List<Integer> report) {
+        List<Integer> transformedReport;
+        for(int i = 0; i < report.size(); i++) {
+            transformedReport = new ArrayList<>(report);
+            transformedReport.remove(i);
+            if(isSortedAsc(transformedReport) || isSortedDesc(transformedReport)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean isSortedAsc(List<Integer> report) {

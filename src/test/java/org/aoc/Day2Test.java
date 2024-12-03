@@ -30,8 +30,14 @@ public class Day2Test {
     }
 
     private static Stream<Arguments> test_reports_safety() {
-        return Stream.of(Arguments.of(List.of(7, 6, 4, 2, 1), true),
-                Arguments.of(List.of(1, 2, 7, 8, 9), false));
+        return Stream.of(
+                Arguments.of(List.of(7, 6, 4, 2, 1), true),
+                Arguments.of(List.of(1, 2, 7, 8, 9), false),
+                Arguments.of(List.of(9, 7, 6, 2, 1), false),
+                Arguments.of(List.of(1, 3, 2, 4, 5), true),
+                Arguments.of(List.of(8, 6, 4, 4 ,1), true),
+                Arguments.of(List.of(5, 1, 2, 3, 4), true)
+        );
     }
 
     @Test
