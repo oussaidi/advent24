@@ -3,7 +3,6 @@ package org.aoc.day2;
 import java.util.List;
 import java.util.Set;
 import java.util.function.BiPredicate;
-import java.util.function.Predicate;
 
 public class Day2 {
 
