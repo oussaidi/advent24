@@ -26,11 +26,15 @@ public class Day7 {
             for(BigInteger element : lastComputationLine){
                 BigInteger additionResult = element.add(inputValue);
                 BigInteger multiplicationResult = element.multiply(inputValue);
+                BigInteger concatenationResult = new BigInteger(element + inputValue.toString());
                 if(additionResult.compareTo(inputLine.computaionResult()) <= 0){
                     newComputationLine.add(additionResult);
                 }
                 if(multiplicationResult.compareTo(inputLine.computaionResult()) <= 0){
                     newComputationLine.add(multiplicationResult);
+                }
+                if(concatenationResult.compareTo(inputLine.computaionResult()) <= 0){
+                    newComputationLine.add(concatenationResult);
                 }
             }
             lastComputationLine = newComputationLine;
