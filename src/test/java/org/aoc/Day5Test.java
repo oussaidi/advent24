@@ -32,6 +32,26 @@ class Day5Test {
         System.out.println(day5.sumOfCentralElements(rulesMap, modificationLines));
     }
 
+    @Test
+    void compute_corrected_lines_central_element_sum() throws IOException {
+        Map<Integer, Set<Integer>> rulesMap = Files.lines(Path.of("src/test/resources/day5.txt"))
+                .filter(line -> line.contains("|"))
+                .map(line -> line.split("\\|"))
+                .map(List::of)
+                .collect(groupingBy(list -> Integer.parseInt(list.getFirst()), mapping(list -> Integer.parseInt(list.get(1)), toSet())));
+
+        List<List<Integer>> modificationLines =
+                Files.lines(Path.of("src/test/resources/day5.txt"))
+                        .filter(line -> !line.contains("|") && !line.isBlank())
+                        .map(line -> line.split(","))
+                        .map(List::of)
+                        .map(list -> list.stream().map(Integer::parseInt).toList())
+                        .toList();
+
+        Day5 day5 = new Day5();
+        System.out.println(day5.centralSumOfCorrectedUpdateLines(rulesMap, modificationLines));
+    }
+
 
 
 }
