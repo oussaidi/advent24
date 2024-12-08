@@ -11,7 +11,7 @@ public class Day8 {
         int lines = inputLines.size();
         int columns = inputLines.getFirst().length();
         return antennasByType.values().stream()
-                .map(this::findAntinodesByCategory)
+                .map(antennas -> this.findAntinodesByCategory(antennas, lines, columns))
                 .flatMap(Set::stream)
                 .filter(position -> position.x() >= 0 && position.x() < lines && position.y() >= 0 && position.y() < columns)
                 .collect(Collectors.toSet())
@@ -33,22 +33,33 @@ public class Day8 {
         return antennasByType;
     }
 
-    Set<Position> findAntinodesByCategory(List<Position> antennas) {
+    Set<Position> findAntinodesByCategory(List<Position> antennas, int lines, int columns) {
         Set<Position> antinodes = new HashSet<>();
         for (int i = 0; i < antennas.size(); i++) {
             Position antenna = antennas.get(i);
             for (int j = i + 1; j < antennas.size(); j++) {
                 Position otherAntenna = antennas.get(j);
-                antinodes.add(findSymmetricPosition(antenna, otherAntenna));
-                antinodes.add(findSymmetricPosition(otherAntenna, antenna));
+                antinodes.addAll(findAntennasAntinodes(antenna, otherAntenna, lines, columns));
+                antinodes.addAll(findAntennasAntinodes(otherAntenna, antenna, lines, columns));
             }
         }
         return antinodes;
     }
 
-    private Position findSymmetricPosition(Position antenna, Position otherAntenna) {
-        int x = 2 * otherAntenna.x() - antenna.x();
-        int y = 2 * otherAntenna.y() - antenna.y();
-        return new Position(x, y);
+    public Set<Position> findAntennasAntinodes(Position referenceAntenna, Position otherAntenna, int lines, int columns) {
+        int distanceFactor = 1;
+        Set<Position> antinodes = new HashSet<>();
+        while(true){
+            int x = referenceAntenna.x() + (distanceFactor * (otherAntenna.x() - referenceAntenna.x()));
+            int y = referenceAntenna.y() + (distanceFactor * (otherAntenna.y() - referenceAntenna.y()));
+            if(x < 0 || x >= lines || y < 0 || y >= columns){
+                break;
+            }
+            else {
+                antinodes.add(new Position(x, y));
+                distanceFactor++;
+            }
+        }
+        return antinodes;
     }
 }
